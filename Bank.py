@@ -1,3 +1,4 @@
+from calendar import c
 from Account import Account
 from Customer import Customer
 
@@ -29,7 +30,9 @@ class Bank:
         pass
 
     def add_account(self, pnr):
-        pass
+        Customer.add_account(pnr, Account().acc_nr)
+        
+        
 
     def get_account(self, pnr, account_id):
         pass
@@ -54,10 +57,12 @@ bank.add_customers("elliot", 19980118)
 bank.add_customers("axel", 19920426)
 
 bank.add_customers("axel", 19920426)
+bank.add_account(19980118)
 
 
 print(Account())
 
 bank.get_customers()
-
+print(Customer.customer_list[0][2])
+bank.add_account(19920426)
 print(Customer.customer_list)
