@@ -14,14 +14,11 @@ class Bank:
         
 
     def add_customers(self, name, pnr):
-        self.name = name
-        for customer in self.customerList:
-            if Customer.getPnr(customer):
-                print("didnt add")
-            else:
-                return self.customerList.append(Customer(name, pnr))
+        if Customer.getPnr(pnr):
+           print("didnt add")
+        else:
+           return self.customerList.append(Customer(name, pnr))
 
-        
     def get_customer(self, pnr):
         return self.customerList.index(pnr)
 
@@ -56,9 +53,11 @@ bank.add_customers("elliot", 19980118)
 
 bank.add_customers("axel", 19920426)
 
-
 bank.add_customers("axel", 19920426)
+
 
 print(Account())
 
 bank.get_customers()
+
+print(Customer.customer_list)

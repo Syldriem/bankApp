@@ -1,11 +1,13 @@
 from Account import Account
 class Customer:
-    accounts = []
+    customer_list = []
 
     def __init__(self, name, pnr) -> None:
+        self.accounts = []
         self.name = name
         self.pnr = pnr
         self.accounts.append(Account())
+        Customer.customer_list.append([self.pnr, self.name])
 
     def __str__(self) -> str:
         stringacc = ""
@@ -13,9 +15,8 @@ class Customer:
             stringacc += str(account)
         return f"{self.name} {self.pnr} {stringacc}"
 
-    def getPnr(self, customer):
-        for x in Customer.accounts:
-            if (customer == x):
+    def getPnr(pnr):
+        for x in Customer.customer_list:
+            if (pnr in x):
                 return True
-            else:
-                return False
+        return False   
