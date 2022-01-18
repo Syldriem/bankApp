@@ -10,7 +10,7 @@ class Customer:
         self.account_numb = []
         for account in self.accounts:
             a = str(account)
-            self.account_numb.append(a[0:4])
+            self.account_numb.append(a)
         Customer.customer_list.append([self.pnr, self.name, self.account_numb])
 
     def __str__(self) -> str:
@@ -26,8 +26,23 @@ class Customer:
         return False
 
     def add_account(pnr, account_number):
-        i = 0
+        pass
+
+    def get_customer(pnr):
         for x in Customer.customer_list:
             if (pnr in x):
+                return x
+        return "no such user"
+    
+    def change_name(name, pnr):
+        for x in Customer.customer_list:
+            if (pnr in x):
+                x[1] = name
+                print(Customer.customer_list)
+    
+    def remove_customer(pnr):
+        for x in Customer.customer_list:
+            if (pnr in x):
+                Customer.customer_list.remove(x)
+                print(Customer.customer_list)
                 
-        i += 1

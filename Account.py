@@ -15,13 +15,13 @@ class Account:
     def get_acc_nr(self):
         pass
 
-    def show_acc(self, acc_nr):
-        pass
+    def show_acc(acc_nr):
+        for x in Account.account_list:
+            if (acc_nr in x):
+                return x
 
     def add_to_balance(self, acc_nr, amount):
         pass
 
     def take_from_balance(self, acc_nr, amount):
         pass
-
-    
