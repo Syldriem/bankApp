@@ -29,7 +29,11 @@ class Bank:
         pass
 
     def add_account(self, pnr):
-        pass
+           for customer in self.customerList:
+               customerIndex = self.customerList.index(customer)
+               if Customer.getPnr(pnr) == True:
+                   self.customerList.insert(customerIndex, Account())
+                   
 
     def get_account(self, pnr, account_id):
         pass
@@ -50,14 +54,13 @@ class Bank:
 
 bank = Bank()
 bank.add_customers("elliot", 19980118)
+bank.add_account(19980118)
 
 bank.add_customers("axel", 19920426)
 
 bank.add_customers("axel", 19920426)
-
-
-print(Account())
 
 bank.get_customers()
 
 print(Customer.customer_list)
+print(bank.customerList)
