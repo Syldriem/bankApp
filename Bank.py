@@ -9,7 +9,7 @@ class Bank:
     def _load():
         f = open("db.txt", "wt")
         a = []
-        for s in Customer.customer_list:
+        for s in Bank.customerList:
             a.append(str(s)+ "\n")
         f.writelines(a)
         f.close()
@@ -50,7 +50,8 @@ class Bank:
         return Account.show_acc(account_id)
 
     def deposit(self, account_id, amount):
-        return Account.add_to_balance(account_id, amount)
+        Account.add_to_balance(account_id, amount)
+        Bank._load()
 
 
     def withdraw(self, pnr, account_id, amount):
@@ -84,7 +85,7 @@ class Bank:
 
 bank = Bank()
 bank.add_customers("elliot", 19980118)
-bank.add_account(19980118)
+
 
 bank.add_customers("axel", 19920426)
 
@@ -99,14 +100,13 @@ bank.get_customers()
 ##bank.add_account(19920426)
 ##print(Customer.customer_list)
 
-
+print(Account.get_acc_nr(1001))
 
 print(bank.get_customer(19920426))
 bank.change_customer_name("hej", 199204262)
 ##bank.remove_customer(199204262)
 print(Customer.customer_list)
 bank.get_account(1002)
-print(bank.deposit(1001, 50))
 bank.add_acc(19920426)
 
 bank.add_acc(19980118)
@@ -114,3 +114,5 @@ bank.add_acc(19980118)
 
 bank.remove_customer(19920426)
 print(Customer.customer_list)
+print(Account.account_list)
+bank.deposit(1002, 50)

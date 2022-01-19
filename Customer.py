@@ -50,8 +50,7 @@ class Customer:
                 newlist.remove(a)
                 f.close()
         f = open("db.txt", "wt")
-        for a in newlist:
-            a = a.strip()
+        
         f.writelines(newlist)      
         f.close() 
         newlist = []
@@ -63,6 +62,6 @@ class Customer:
         Customer.customer_list = []
         f = open("db.txt", "rt")
         for line in f:
-            Customer.customer_list.append(line)
+            Customer.customer_list.append(line.rstrip("\n"))
         f.close()
                 
