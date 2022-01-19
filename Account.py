@@ -6,7 +6,7 @@ class Account:
         self.balance = balance
         self.acc_nr = Account.acc_nr
         Account.acc_nr += 1
-        Account.account_list.append([self.acc_nr, self.balance, self.account_type])
+        Account.account_list.append([self.acc_nr, int(self.balance), self.account_type])
 
     def __str__(self) -> str:
         return f"{self.acc_nr} {self.balance} {self.account_type}"
@@ -20,8 +20,11 @@ class Account:
             if (acc_nr in x):
                 return x
 
-    def add_to_balance(self, acc_nr, amount):
-        pass
+    def add_to_balance(acc_nr, amount):
+        for x in Account.account_list:
+            if (acc_nr in x):
+                x[1] += amount
+                return x
 
     def take_from_balance(self, acc_nr, amount):
         pass

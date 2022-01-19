@@ -41,8 +41,28 @@ class Customer:
                 print(Customer.customer_list)
     
     def remove_customer(pnr):
-        for x in Customer.customer_list:
-            if (pnr in x):
-                Customer.customer_list.remove(x)
-                print(Customer.customer_list)
+        f = open("db.txt", "rt")
+        newlist = []
+        for line in f:
+            newlist.append(line)
+        for a in newlist:
+            if str(pnr) in a:
+                newlist.remove(a)
+                f.close()
+        f = open("db.txt", "wt")
+        for a in newlist:
+            a = a.strip()
+        f.writelines(newlist)      
+        f.close() 
+        newlist = []
+        Customer.update_customer_list()
+
+    
+
+    def update_customer_list():
+        Customer.customer_list = []
+        f = open("db.txt", "rt")
+        for line in f:
+            Customer.customer_list.append(line)
+        f.close()
                 

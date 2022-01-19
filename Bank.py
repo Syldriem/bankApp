@@ -4,6 +4,7 @@ from Customer import Customer
 class Bank:
     customerList = []
     customers = {1001: "Me", 1002: "You"}
+    newlist = []
 
     def _load():
         f = open("db.txt", "wt")
@@ -21,9 +22,11 @@ class Bank:
     def add_customers(self, name, pnr):
         if Customer.getPnr(pnr):
            print("didnt add")
-        else:
+        elif len(str(pnr)) == 8:
            self.customerList.append(Customer(name, pnr))
            Bank._load()
+        else:
+            print("wrong length person number")
 
     def get_customer(self, pnr):
         return Customer.get_customer(pnr)
@@ -44,10 +47,11 @@ class Bank:
                    
 
     def get_account(self, account_id):
-        return print(Account.show_acc(account_id))
+        return Account.show_acc(account_id)
 
     def deposit(self, account_id, amount):
-        pass
+        return Account.add_to_balance(account_id, amount)
+
 
     def withdraw(self, pnr, account_id, amount):
         pass
@@ -58,6 +62,24 @@ class Bank:
         
     def get_all_transactions(self, pnr, acc_r):
         pass
+    
+    def add_acc(self, pnr):
+        f = open("db.txt", "rt")
+        acc_nr = bank.get_account(Account().acc_nr)
+        i = str(acc_nr)[1:]
+        for line in f:
+            self.newlist.append(line)
+        for a in self.newlist:
+            if str(pnr) in a:
+                s = a[0:-3]
+                s += f", {i}]\n"
+                self.newlist[self.newlist.index(a)] = s
+                f.close()
+        f = open("db.txt", "wt")
+        f.writelines(self.newlist)      
+        f.close() 
+        self.newlist = []
+        Customer.update_customer_list()
 
 
 bank = Bank()
@@ -68,7 +90,7 @@ bank.add_customers("axel", 19920426)
 
 bank.add_customers("axel", 19920426)
 ##bank.add_account(19980118)
-bank.add_customers("axel2", 199204262)
+bank.add_customers("axel2", 19920427)
 
 ##print(Account())
 
@@ -77,19 +99,18 @@ bank.get_customers()
 ##bank.add_account(19920426)
 ##print(Customer.customer_list)
 
-##f = open("db.txt", "rt")
-##newlist = []
-##for line in f:
-##    newlist.append(line)
-##for a in newlist:
-##    if "19920426" in a:
-##        s = a[0:-3]
-##        s += ", '1003 0 debit']]"
-##       print(s)
-##
+
 
 print(bank.get_customer(19920426))
 bank.change_customer_name("hej", 199204262)
 ##bank.remove_customer(199204262)
 print(Customer.customer_list)
 bank.get_account(1002)
+print(bank.deposit(1001, 50))
+bank.add_acc(19920426)
+
+bank.add_acc(19980118)
+
+
+bank.remove_customer(19920426)
+print(Customer.customer_list)
