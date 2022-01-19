@@ -106,45 +106,8 @@ bank.add_customers("axel", 19920426)
 ##bank.add_account(19980118)
 bank.add_customers("axel2", 19920427)
 
-##print(Account())
-
-##bank.get_customers()
-##print(Customer.customer_list[0][2])
-##bank.add_account(19920426)
-##print(Customer.customer_list)
-
 print(Account.get_acc_nr(1001))
 
-##print(bank.get_customer(19920426))
-##bank.change_customer_name("hej", 199204262)
-##bank.remove_customer(199204262)
-##print(Customer.customer_list)
-##bank.get_account(1002)
-##print(bank.deposit(1001, 50))
-##bank.add_acc(19920426)
-
-##bank.add_acc(19980118)
-
-
-##bank.remove_customer(19920426)
-
-
-
-##print(Customer.customer_list)
-##print(Account.account_list)
-##print(bank.get_account(1001))
-##print(bank.customerList)
-
-
-##print(getter(bank.customerList[0]))
-##print(type(bank.customerList[0]))
-##print(Bank.customerList)
-##print(getter(bank.customerList[0]))
-
-##print(getter(bank.customerList[1]))
-##print(getter2(Customer.account_list[0]))
-##print(Customer.account_list)
-##bank.deposit(19920426, 1002, 50)
 bank.change_customer_name("elliot2", 19980118)
 getter2 = operator.attrgetter("name")
 print(getter2(Bank.customerList[0]))
