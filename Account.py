@@ -23,8 +23,8 @@ class Account:
         for y in Account.account_list:
             return y
 
-    def add_to_balance(acc_nr, amount):
-            Account.account_list[acc_nr][1] = amount
+    ##ef add_to_balance(acc_nr, amount):
+        ##Customer.account_list[acc_nr] += amount
 
     def take_from_balance(self, acc_nr, amount):
         pass
