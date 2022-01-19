@@ -1,4 +1,6 @@
+import operator
 from Account import Account
+from Bank import Bank
 class Customer:
     customer_list = []
     account_list = {}
@@ -27,9 +29,12 @@ class Customer:
                 return True
         return False
 
-    def add_account(pnr, account_number):
-        pass
-
+    def add_account(customer):
+        a = Account()
+        customer.accounts.append(a)
+        customer.account_list[customer.pnr] += str(a)
+        
+        
     def get_customer(pnr):
         for x in Customer.customer_list:
             if (pnr in x):

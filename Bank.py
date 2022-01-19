@@ -53,10 +53,18 @@ class Bank:
         ##Bank._load()
     
     def add_account(self, pnr):
-           for customer in self.customerList:
-               customerIndex = self.customerList.index(customer)
-               if Customer.getPnr(pnr) == True:
-                   self.customerList.insert(customerIndex, Account())
+        getter = operator.attrgetter("pnr")
+
+        for x in Bank.customerList:
+            temp_index = Bank.customerList.index(x)
+            if pnr == getter(Bank.customerList[temp_index]):
+                customer = Bank.customerList[temp_index]
+                Customer.add_account(customer)
+                Bank._load()
+                return print("account added")
+            
+        print("no person with that id number")
+
                    
 
     def get_account(self, account_id):
