@@ -1,4 +1,3 @@
-[19980118, 'elliot', ['1001 0 debit', 1005, 0, 'debit']]
-
-[19920427, 'axel2', ['1003 0 debit']]
-
+elliot2 19980118 1001 0 debit
+axel 19920426 1002 0 debit
+axel2 19920427 1003 0 debit

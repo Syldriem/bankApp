@@ -1,3 +1,6 @@
+
+
+
 class Account:
     acc_nr = 1001
     account_type = "debit"
@@ -20,11 +23,8 @@ class Account:
             if (acc_nr in x):
                 return x
 
-    def add_to_balance(acc_nr, amount):
-        for x in Account.account_list:
-            if (acc_nr in x):
-                x[1] += amount
-                return x
+    ##ef add_to_balance(acc_nr, amount):
+        ##Customer.account_list[acc_nr] += amount
 
     def take_from_balance(self, acc_nr, amount):
         pass
