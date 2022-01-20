@@ -4,4 +4,5 @@ from Bank import Bank
 
 bank = Bank()
 
-bank.add_customer()
+##bank.add_customer()
+

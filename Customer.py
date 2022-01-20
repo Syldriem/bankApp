@@ -3,14 +3,17 @@ from Account import Account
 from Bank import Bank
 class Customer:
     customer_list = []
-    account_list = {}
-    def __init__(self, name, pnr) -> None:
+    account_list = []
+    def __init__(self, name, pnr, *args) -> None:
         self.accounts = []
         self.name = name
         self.pnr = pnr
-        a = Account()
+        if len(args) == 0:
+            a = Account()
+        else:
+            a = Account(args[0], args[1])
         self.accounts.append(a)
-        self.account_list[pnr] = str(a)
+        self.account_list.append(a)
         self.account_numb = []
         for account in self.accounts:
             a = str(account)
@@ -23,18 +26,23 @@ class Customer:
             stringacc += str(account)
         return f"{self.name} {self.pnr} {stringacc}"
 
+    def cust_from_list(name, pnr, account_id, balance):
+        return Customer(name, pnr, account_id, balance)
+
+        ''' FIX'''
     def getPnr(pnr):
         for x in Customer.customer_list:
             if (pnr in x):
                 return True
         return False
 
-    def add_account(customer):
-        a = Account()
+    def add_account(customer, acc_num, balance):
+        a = Account(acc_num, balance)
         customer.accounts.append(a)
-        customer.account_list[customer.pnr] += str(a)
+        customer.account_list.append(a)
         
         
+
     def get_customer(pnr):
         for x in Customer.customer_list:
             if (pnr in x):
@@ -47,25 +55,8 @@ class Customer:
                 x[1] = name
                 print(Customer.customer_list)
     
-    def remove_customer(pnr):
-        f = open("db.txt", "rt")
-        newlist = []
-        for line in f:
-            newlist.append(line)
-        for a in newlist:
-            if str(pnr) in a:
-                
-                newlist.remove(a)
-                ##del newlist[newlist.index(a)]
-                f.close()
-        f = open("db.txt", "wt")
-
-        f.writelines(newlist)
-        f.close() 
-
-        newlist = []
-        Customer.update_customer_list()
-
+    def remove_customer(customer):
+        del customer
 
     def update_customer_list():
         Customer.customer_list = []
@@ -77,4 +68,10 @@ class Customer:
     def change_name2(customer, name):
         print(customer.name)
         customer.name = name
-        
+
+    def delete_account_from_cust(customer, account):
+        temp_index = customer.accounts
+        for x in customer.accounts:
+            temp_index = customer.accounts.index(x)
+            if account == x:
+                del customer.accounts[temp_index]
