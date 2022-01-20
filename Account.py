@@ -19,9 +19,6 @@ class Account:
         return f"{self.acc_nr} {self.balance} {self.account_type} "
 
         
-    def get_acc_nr(self, acc_nr):
-        getter = operator.attrgetter("acc_nr")
-        return getter(self.account_list[acc_nr])
 
     def show_acc(acc_nr):
         for x in Account.account_list:
