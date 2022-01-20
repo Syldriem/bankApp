@@ -27,6 +27,7 @@ class Customer:
     def cust_from_list(name, pnr, account_id, balance):
         return Customer(name, pnr, account_id, balance)
 
+        ''' FIX'''
     def getPnr(pnr):
         for x in Customer.customer_list:
             if (pnr in x):

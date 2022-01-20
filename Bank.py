@@ -41,7 +41,7 @@ class Bank:
 
     def add_customers(name, pnr, *args):
         if Customer.getPnr(pnr):
-           print("didnt add")
+           return print("didnt add")
         elif len(str(pnr)) == 8:
             if len(args) == 0:
                 Bank.customerList.append(Customer(name, pnr))
@@ -252,8 +252,9 @@ bank.change_customer_name("elliot2", 19980118)
 ##Bank.deposit(1004, 30)
 ##Bank.withdraw(1001, 30)
 ##Bank.close_account(1001)
+Bank.add_customers("sten", 19920412)
 
 print(Bank.customerList)
 print(Customer.account_list)
 bank.get_customers()
-Bank.add_customers("sten", 19920412)
+

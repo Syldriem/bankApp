@@ -1,15 +1,18 @@
 
 
 class Account:
-    acc_nr = 1001
     account_type = "debit"
     account_list = []
-    def __init__(self, acc_nbr = acc_nr, balance = 0) -> None:
-
+    account_num_list = [1000]
+    
+    def __init__(self, acc_nbr = 0, balance = 0) -> None:
         self.balance = balance
-        self.acc_nr = acc_nbr
-        ##self.acc_nr = args
-        Account.acc_nr += 1
+        if int(acc_nbr) > max(Account.account_num_list):
+            self.acc_nr = acc_nbr
+        else:
+            self.acc_nr = max(Account.account_num_list)+1
+        Account.account_num_list.append(int(self.acc_nr))
+        
         Account.account_list.append([self.acc_nr, int(self.balance), self.account_type])
 
     def __str__(self) -> str:
