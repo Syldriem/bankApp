@@ -18,9 +18,12 @@ class Bank:
             print(x)
             Bank.add_customers(x[0], x[1], x[2], x[3])
             ##Bank.update_customers(x[0], x[1], x[2], x[3])
-            if len(x)>=6:
-                Bank.add_account(x[1],x[5], x[6])
-                len(x)
+            i = 5
+            index = 1
+            while index <= (len(x)-5)/3:
+                Bank.add_account(x[1],x[i], x[i+1])
+                i += 3
+                index +=1
 
     
     ##def update_customers(name, pnr, account_id, account_balance):

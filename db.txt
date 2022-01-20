@@ -1,4 +1,4 @@
-elliot2 19980118 1001 30 debit 1004 50 debit 
+elliot2 19980118 1001 30 debit 1004 50 debit 1014 100 debit 
 axel 19920426 1005 10 debit 1006 20 debit 
 axel2 19920427 1012 30 debit 
 sten 19920412 1013 0 debit 
