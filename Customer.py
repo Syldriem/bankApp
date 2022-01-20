@@ -1,14 +1,17 @@
 from Account import Account
 class Customer:
     customer_list = []
-    account_list = {}
-    def __init__(self, name, pnr, acc_num, balance) -> None:
+    account_list = []
+    def __init__(self, name, pnr, *args) -> None:
         self.accounts = []
         self.name = name
         self.pnr = pnr
-        a = Account(acc_num, balance)
+        if len(args) == 0:
+            a = Account()
+        else:
+            a = Account(args[0], args[1])
         self.accounts.append(a)
-        self.account_list[pnr] = str(a)
+        self.account_list.append(a)
         self.account_numb = []
         for account in self.accounts:
             a = str(account)
@@ -33,7 +36,7 @@ class Customer:
     def add_account(customer, acc_num, balance):
         a = Account(acc_num, balance)
         customer.accounts.append(a)
-        customer.account_list[customer.pnr] += str(a)
+        customer.account_list.append(a)
         
         
 
@@ -62,4 +65,10 @@ class Customer:
     def change_name2(customer, name):
         print(customer.name)
         customer.name = name
-        
+
+    def delete_account_from_cust(customer, account):
+        temp_index = customer.accounts
+        for x in customer.accounts:
+            temp_index = customer.accounts.index(x)
+            if account == x:
+                del customer.accounts[temp_index]

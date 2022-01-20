@@ -1,11 +1,11 @@
 
 
-
 class Account:
     acc_nr = 1001
     account_type = "debit"
     account_list = []
     def __init__(self, acc_nbr = acc_nr, balance = 0) -> None:
+
         self.balance = balance
         self.acc_nr = acc_nbr
         ##self.acc_nr = args
@@ -24,8 +24,15 @@ class Account:
             if (str(acc_nr) == x[0]):
                 return x
 
-    ##ef add_to_balance(acc_nr, amount):
-        ##Customer.account_list[acc_nr] += amount
+    def add_to_balance(account, amount):
+        x = int(account.balance)
+        account.balance = (x+amount)
 
-    def take_from_balance(self, acc_nr, amount):
-        pass
+    def take_from_balance(account, amount):
+        x = int(account.balance)
+        if (x-amount)>=0:
+            account.balance = (x-amount)
+        else:
+            print("not enough money in account")
+
+

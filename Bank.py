@@ -39,12 +39,16 @@ class Bank:
             print(customer)
         
 
-    def add_customers(name, pnr, acc_num, balance):
+    def add_customers(name, pnr, *args):
         if Customer.getPnr(pnr):
            print("didnt add")
         elif len(str(pnr)) == 8:
-           Bank.customerList.append(Customer(name, pnr, acc_num, balance))
-           Bank._load()
+            if len(args) == 0:
+                Bank.customerList.append(Customer(name, pnr))
+                Bank._load()
+            else:
+                Bank.customerList.append(Customer(name, pnr, args[0], args[1]))
+                Bank._load()
         else:
             print("wrong length person number")
 
@@ -94,9 +98,6 @@ class Bank:
         temp_index = Bank.customerList.index
         for x in Bank.customerList:
             temp_index = Bank.customerList.index(x)
-            print(pnr)
-            asd = getter(Bank.customerList[temp_index])
-            print(asd)
             if str(pnr) == getter(Bank.customerList[temp_index]):
                 customer = Bank.customerList[temp_index]
                 Customer.add_account(customer, acc_nb, balance)
@@ -110,16 +111,61 @@ class Bank:
     def get_account(self, account_id):
         print(Account.show_acc(account_id))
 
-    def deposit(self, pnr, account_id, amount):
+    def deposit(account_id, amount):
+        getter = operator.attrgetter("acc_nr")
+        
+        temp_index = Customer.account_list
+        for x in Customer.account_list:
+            temp_index = Customer.account_list.index(x)
+            if str(account_id) == getter(Customer.account_list[temp_index]):
+                account = Customer.account_list[temp_index]
+                Account.add_to_balance(account, amount)
+                Bank._load()
+                return print("Money deposited")
+            
+        print("no account with that id number")
+        
 
-        Customer.account_list[pnr][account_id] += amount
+
+    def withdraw(account_id, amount):
+        getter = operator.attrgetter("acc_nr")
+        
+        temp_index = Customer.account_list
+        for x in Customer.account_list:
+            temp_index = Customer.account_list.index(x)
+            if str(account_id) == getter(Customer.account_list[temp_index]):
+                account = Customer.account_list[temp_index]
+                Account.take_from_balance(account, amount)
+                Bank._load()
+                return print("Money withdrawn")
+            
+        print("no account with that id number")
+
+    def close_account(account_id):
+        getter = operator.attrgetter("acc_nr")
+        
+        temp_index = Customer.account_list
+        for x in Customer.account_list:
+            temp_index = Customer.account_list.index(x)
+            if str(account_id) == getter(Customer.account_list[temp_index]):
+                account = Customer.account_list[temp_index]
+                del Customer.account_list[temp_index]
+
+                getter2 = operator.attrgetter("accounts")
+                temp_index = Bank.customerList
+                for x in Bank.customerList:
+                    temp_index = Bank.customerList.index(x)
+                    if account in getter2(Bank.customerList[temp_index]):
+                        customer = Bank.customerList[temp_index]
+
+                        Customer.delete_account_from_cust(customer, account)
+                        Bank._load()
+                        return print("Account deleted")
 
 
-    def withdraw(self, pnr, account_id, amount):
-        pass
-
-    def close_account(self, pnr, account_id):
-        pass
+                
+            
+        print("no account with that id number")
 
         
     def get_all_transactions(self, pnr, acc_r):
@@ -199,8 +245,15 @@ bank.change_customer_name("elliot2", 19980118)
 
 ##bank.add_account(19920426)
 
-print(Customer.customer_list)
+
 ##bank.remove_customer(19920426)
+##print(Bank.customerList)
+
+##Bank.deposit(1004, 30)
+##Bank.withdraw(1001, 30)
+##Bank.close_account(1001)
+
 print(Bank.customerList)
-print(Account.account_list)
+print(Customer.account_list)
 bank.get_customers()
+Bank.add_customers("sten", 19920412)
