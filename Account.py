@@ -36,4 +36,11 @@ class Account:
         else:
             print("not enough money in account")
 
+    def get_acc(account):
+        getter = operator.attrgetter("acc_nr")
+        acc_list = []
+        for x in account:
+            acc_nr = getter(x)
+            acc_list.append(acc_nr)
+        return acc_list 
 

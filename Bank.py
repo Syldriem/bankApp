@@ -1,5 +1,7 @@
 from asyncio.windows_events import NULL
 from math import radians
+from re import A
+from unicodedata import name
 from Account import Account
 from Customer import Customer
 import operator
@@ -39,14 +41,16 @@ class Bank:
         f.writelines(a)
         f.close()
 
+
     def get_customers(self):
-        for customer in self.customerList:
-            print(customer)
-        
+        getter = operator.attrgetter("pnr", "name")
+        for customer in Bank.customerList:
+            print(getter(customer))
+
 
     def add_customers(name, pnr, *args):
         if Bank.checkPnr(pnr):
-           return print(f"{name} didnt add")
+           return print(f"{name} didnt add"), False
         elif len(str(pnr)) == 8:
             if len(args) == 0:
                 Bank.customerList.append(Customer(name, pnr))
@@ -55,7 +59,7 @@ class Bank:
                 Bank.customerList.append(Customer(name, pnr, args[0], args[1]))
                 Bank._load()
         else:
-            print("wrong length person number")
+            return print("wrong length person number"), False
 
     def get_customer(self, pnr):
         getter = operator.attrgetter("pnr")
@@ -76,22 +80,30 @@ class Bank:
                 customer = Bank.customerList[temp_index]
                 Customer.change_name2(customer, name)
                 Bank._load()
-                return print(f"name changed to {name}")
+                return print(f"name changed to {name}"), True
             
         print("no person with that id number")
                 
 
     def remove_customer(self, pnr):
         getter = operator.attrgetter("pnr")
-        
+        getter2 = operator.attrgetter("accounts")
+        getter3 = operator.attrgetter("balance")
         for x in Bank.customerList:
             temp_index = Bank.customerList.index(x)
             if str(pnr) == getter(bank.customerList[temp_index]):
-                #customer = Bank.customerList[temp_index]
-                ##Customer.remove_customer(customer)
+                accounts = getter2(Bank.customerList[temp_index])
+                deleted_cust = []
+                account_balance = 0
+                for x in accounts:
+                    account_balance += int(getter3(x))
+
+                for x in Account.get_acc(accounts):
+                    deleted_cust.append(Bank.close_account(x))
                 del Bank.customerList[temp_index]
                 Bank._load()
-                return print("customer removed")
+                return print(f"customer removed. These accounts deleted:\
+{deleted_cust} {account_balance}:- has been returned") 
             
         print("no person with that id number")
     
@@ -111,7 +123,14 @@ class Bank:
     
 
     def get_account(self, account_id):
-        print(Account.show_acc(account_id))
+        getter = operator.attrgetter("acc_nr")
+        for x in Customer.account_list:
+            temp_index = Customer.account_list.index(x)
+            if str(account_id) == getter(Customer.account_list[temp_index]):
+                account = Customer.account_list[temp_index]
+                print(account)
+
+
 
     def deposit(account_id, amount):
         getter = operator.attrgetter("acc_nr")
@@ -165,7 +184,8 @@ class Bank:
                         
                         Customer.delete_account_from_cust(customer, account)
                         Bank._load()
-                        return print("Account deleted")
+                        print(f"Account deleted with id: {account_id}")
+                        return str(account)
 
 
                 
@@ -222,4 +242,6 @@ bank.change_customer_name("elliot2", 19980118)
 Bank.add_customers("sten", 19920412)
 #Bank.add_account(19980118, 1020, 100)
 bank.get_customers()
+bank.get_account(1001)
+bank.get_customer(19980118)
 
