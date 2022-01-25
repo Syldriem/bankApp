@@ -1,20 +1,19 @@
+import operator
 from asyncio.windows_events import NULL
 from math import radians
 from re import A
 from unicodedata import name
+
 from Account import Account
 from Customer import Customer
-import operator
+from Datasource import Datasource
+
 
 class Bank:
     customerList = []
 
     def __init__(self):
-        temp_list = []
-        f = open("db.txt", "rt")
-        for line in f:
-            temp_list.append(line)
-        f.close()
+        temp_list = Datasource.get_all()
         for line in temp_list:
             x = line.split()
             Bank.add_customers(x[1], x[2], x[4], x[3], x[0])
@@ -33,12 +32,13 @@ class Bank:
 
 
     def _load():
-        f = open("db.txt", "wt")
-        a = []
-        for s in Bank.customerList:
-            a.append(str(s)+ "\n")
-        f.writelines(a)
-        f.close()
+        ##f = open("db.txt", "wt")
+        ##a = []
+        ##for s in Bank.customerList:
+        ##    a.append(str(s)+ "\n")
+        ##f.writelines(a)
+        ##f.close()
+        Datasource.update_db(Bank.customerList)
 
 
     def get_customers():
@@ -54,9 +54,11 @@ class Bank:
             if len(args) == 0:
                 Bank.customerList.append(Customer(name, pnr))
                 Bank._load()
+                return True
             else:
                 Bank.customerList.append(Customer(name, pnr, args[0], args[1], args[2]))
                 Bank._load()
+                return True
         else:
             return print("wrong length person number"), False
 

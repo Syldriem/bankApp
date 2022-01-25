@@ -3,19 +3,21 @@ from Account import Account
 """Hej detta är en modul"""
 
 class Customer:
+    ## FIX CUSTOMER ID INT##
     account_list = []
-    customer_id = [111110]
+    customer_id_list = [111110]
     def __init__(self, name, pnr, *args) -> None:
         self.accounts = []
         if len(args) == 0:
-            self.customer_id = max(Customer.customer_id)+1
+            self.customer_id = max(Customer.customer_id_list)+1
         else:
-            if args[2] not in Customer.customer_id:
-                self.customer_id = args[2]
+            if args[2] not in Customer.customer_id_list:
+                self.customer_id = str(args[2])
             else:
-                self.customer_id = max(Customer.customer_id)+1
+                asd = max(Customer.customer_id_list)+1
+                self.customer_id = str(asd)
 
-        Customer.customer_id.append(int(self.customer_id))
+        Customer.customer_id_list.append(int(self.customer_id))
         self.name = name
         self.pnr = pnr
         if len(args) == 0:
@@ -23,7 +25,7 @@ class Customer:
         else:
             a = Account(args[0], args[1])
         self.accounts.append(a)
-        self.account_list.append(a)
+        Customer.account_list.append(a)
 
 
     def __str__(self) -> str:
