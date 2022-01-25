@@ -33,8 +33,11 @@ class Account:
         x = int(account.balance)
         if (x-amount)>=0:
             account.balance = (x-amount)
+            print("money withdrawn")
+            return True
         else:
             print("not enough money in account")
+            return False
 
     def get_acc(account):
         getter = operator.attrgetter("acc_nr")

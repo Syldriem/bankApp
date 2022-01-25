@@ -17,7 +17,6 @@ class Bank:
         f.close()
         for line in temp_list:
             x = line.split()
-            print(x)
             Bank.add_customers(x[1], x[2], x[4], x[3], x[0])
             ##Bank.update_customers(x[0], x[1], x[2], x[3])
             i = 6
@@ -164,9 +163,9 @@ class Bank:
             temp_index = Customer.account_list.index(x)
             if str(account_id) == getter(Customer.account_list[temp_index]):
                 account = Customer.account_list[temp_index]
-                Account.take_from_balance(account, amount)
+                status = Account.take_from_balance(account, amount)
                 Bank._load()
-                return print("Money withdrawn")
+                return status
             
         print("no account with that id number")
 
@@ -175,22 +174,26 @@ class Bank:
         getter3 = operator.attrgetter("balance")
         
         for x in Customer.account_list:
-            temp_index = Customer.account_list.index(x)
-            if str(account_id) == getter(Customer.account_list[temp_index]):
-                account = Customer.account_list[temp_index]
-                balance = getter3(Customer.account_list[temp_index])
-                del Customer.account_list[temp_index]
+            temp_index1 = Customer.account_list.index(x)
+            if str(account_id) == getter(Customer.account_list[temp_index1]):
+                    account = Customer.account_list[temp_index1]
+                    balance = getter3(Customer.account_list[temp_index1])
+                    
 
-                getter2 = operator.attrgetter("accounts")
-                for x in Bank.customerList:
-                    temp_index = Bank.customerList.index(x)
-                    if account in getter2(Bank.customerList[temp_index]):
-                        customer = Bank.customerList[temp_index]
-                        
-                        Customer.delete_account_from_cust(customer, account)
-                        Bank._load()
-                        print(f"Account deleted with id: {account_id} and {balance}:- is returned")
-                        return str(account)
+                    getter2 = operator.attrgetter("accounts")
+                    for x in Bank.customerList:
+                        temp_index2 = Bank.customerList.index(x)
+                        if account in getter2(Bank.customerList[temp_index2]):
+                            if len(getter2(Bank.customerList[temp_index2])) == 1:
+                                print("Customer only has one account, cant delete")
+                                return str(account)
+                            else:
+                                customer = Bank.customerList[temp_index2]
+                                del Customer.account_list[temp_index1]
+                                Customer.delete_account_from_cust(customer, account)
+                                Bank._load()
+                                print(f"Account deleted with id: {account_id} and {balance}:- is returned")
+                                return str(account)
 
 
                 
@@ -243,4 +246,6 @@ class Bank:
 ##Bank.withdraw(1001, 30)
 ##Bank.close_account(1001)
 #Bank.add_account(19980118, 1020, 100)
-
+##bank = Bank()
+##print(Customer.account_list)
+##print(Bank.withdraw(1001, 60))
