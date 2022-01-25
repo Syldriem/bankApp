@@ -4,11 +4,8 @@ from pip import main
 from Account import Account
 from Customer import Customer
 from Bank import Bank
-from Datasource import Datasource
 
-db = Datasource()
 bank = Bank()
-
 customer_options = {
     "1": "See customer information",
     "2": "Deposit to customer account",
@@ -77,8 +74,7 @@ while True:
         name = input("Name: ")
         pnr = input("Social security number: ")
         print("------------------------------")
-        if Bank.add_customers(name, pnr) == True:
-            print("Customer added")
+        Bank.add_customers(name, pnr)
         print("------------------------------")
         input("Press enter to return to menu")
         print("------------------------------") 
