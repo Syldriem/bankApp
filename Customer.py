@@ -1,10 +1,21 @@
 import operator
 from Account import Account
+"""Hej detta är en modul"""
 
 class Customer:
     account_list = []
+    customer_id = [111110]
     def __init__(self, name, pnr, *args) -> None:
         self.accounts = []
+        if len(args) == 0:
+            self.customer_id = max(Customer.customer_id)+1
+        else:
+            if args[2] not in Customer.customer_id:
+                self.customer_id = args[2]
+            else:
+                self.customer_id = max(Customer.customer_id)+1
+
+        Customer.customer_id.append(int(self.customer_id))
         self.name = name
         self.pnr = pnr
         if len(args) == 0:
@@ -19,7 +30,7 @@ class Customer:
         stringacc = ""
         for account in self.accounts:
             stringacc += str(account)
-        return f"{self.name} {self.pnr} {stringacc}"
+        return f"{self.customer_id} {self.name} {self.pnr} {stringacc}"
 
 
 
@@ -29,8 +40,12 @@ class Customer:
 
 
 
-    def add_account(customer, acc_num, balance):
-        a = Account(acc_num, balance)
+    def add_account(customer, balance, *args):
+        if len(args) == 0:
+            a = Account(balance)
+        else:
+        
+            a = Account(balance, args[0])
         customer.accounts.append(a)
         customer.account_list.append(a)
         

@@ -18,12 +18,12 @@ class Bank:
         for line in temp_list:
             x = line.split()
             print(x)
-            Bank.add_customers(x[0], x[1], x[2], x[3])
+            Bank.add_customers(x[1], x[2], x[4], x[3], x[0])
             ##Bank.update_customers(x[0], x[1], x[2], x[3])
-            i = 5
+            i = 6
             index = 1
-            while index <= (len(x)-5)/3:
-                Bank.add_account(x[1],x[i], x[i+1])
+            while index <= (len(x)-6)/3:
+                Bank.add_account(x[2],x[i+1], x[i])
                 i += 3
                 index +=1
 
@@ -42,21 +42,21 @@ class Bank:
         f.close()
 
 
-    def get_customers(self):
-        getter = operator.attrgetter("pnr", "name")
+    def get_customers():
+        getter = operator.attrgetter("customer_id","pnr", "name")
         for customer in Bank.customerList:
             print(getter(customer))
 
 
     def add_customers(name, pnr, *args):
         if Bank.checkPnr(pnr):
-           return print(f"{name} didnt add"), False
+           return print(f"{name} didnt add, customer with that ssn already exists"), False
         elif len(str(pnr)) == 8:
             if len(args) == 0:
                 Bank.customerList.append(Customer(name, pnr))
                 Bank._load()
             else:
-                Bank.customerList.append(Customer(name, pnr, args[0], args[1]))
+                Bank.customerList.append(Customer(name, pnr, args[0], args[1], args[2]))
                 Bank._load()
         else:
             return print("wrong length person number"), False
@@ -65,7 +65,7 @@ class Bank:
         getter = operator.attrgetter("pnr")
         for x in Bank.customerList:
             temp_index = Bank.customerList.index(x)
-            if str(pnr) == getter(bank.customerList[temp_index]):
+            if str(pnr) == getter(Bank.customerList[temp_index]):
                 customer = Bank.customerList[temp_index]
                 return print(customer)
 
@@ -76,7 +76,7 @@ class Bank:
         
         for x in Bank.customerList:
             temp_index = Bank.customerList.index(x)
-            if str(pnr) == getter(bank.customerList[temp_index]):
+            if str(pnr) == getter(Bank.customerList[temp_index]):
                 customer = Bank.customerList[temp_index]
                 Customer.change_name2(customer, name)
                 Bank._load()
@@ -91,7 +91,7 @@ class Bank:
         getter3 = operator.attrgetter("balance")
         for x in Bank.customerList:
             temp_index = Bank.customerList.index(x)
-            if str(pnr) == getter(bank.customerList[temp_index]):
+            if str(pnr) == getter(Bank.customerList[temp_index]):
                 accounts = getter2(Bank.customerList[temp_index])
                 deleted_cust = []
                 account_balance = 0
@@ -107,14 +107,17 @@ class Bank:
             
         print("no person with that id number")
     
-    def add_account(pnr, acc_nb, balance):
+    def add_account(pnr, balance, *args):
         getter = operator.attrgetter("pnr")
         
         for x in Bank.customerList:
             temp_index = Bank.customerList.index(x)
             if str(pnr) == getter(Bank.customerList[temp_index]):
                 customer = Bank.customerList[temp_index]
-                Customer.add_account(customer, acc_nb, balance)
+                if len(args) == 0:
+                    Customer.add_account(customer, balance)
+                else:
+                    Customer.add_account(customer, balance, args[0])
                 Bank._load()
                 return print("account added")
             
@@ -169,11 +172,13 @@ class Bank:
 
     def close_account(account_id):
         getter = operator.attrgetter("acc_nr")
+        getter3 = operator.attrgetter("balance")
         
         for x in Customer.account_list:
             temp_index = Customer.account_list.index(x)
             if str(account_id) == getter(Customer.account_list[temp_index]):
                 account = Customer.account_list[temp_index]
+                balance = getter3(Customer.account_list[temp_index])
                 del Customer.account_list[temp_index]
 
                 getter2 = operator.attrgetter("accounts")
@@ -184,7 +189,7 @@ class Bank:
                         
                         Customer.delete_account_from_cust(customer, account)
                         Bank._load()
-                        print(f"Account deleted with id: {account_id}")
+                        print(f"Account deleted with id: {account_id} and {balance}:- is returned")
                         return str(account)
 
 
@@ -216,7 +221,6 @@ class Bank:
 ##        Customer.update_customer_list()
 
 
-bank = Bank()
 ##bank.add_customers("elliot", 19980118)
 
 ##bank.add_customers("axel", 19920426)
@@ -226,7 +230,6 @@ bank = Bank()
 ##bank.add_customers("axel2", 19920427)
 
 
-bank.change_customer_name("elliot2", 19980118)
 #getter2 = operator.attrgetter("name")
 ##print(getter2(Bank.customerList[0]))
 
@@ -239,9 +242,5 @@ bank.change_customer_name("elliot2", 19980118)
 ##Bank.deposit(1004, 30)
 ##Bank.withdraw(1001, 30)
 ##Bank.close_account(1001)
-Bank.add_customers("sten", 19920412)
 #Bank.add_account(19980118, 1020, 100)
-bank.get_customers()
-bank.get_account(1001)
-bank.get_customer(19980118)
 
