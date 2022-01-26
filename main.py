@@ -6,7 +6,8 @@ from Customer import Customer
 from Bank import Bank
 
 bank = Bank()
-customer_options = {
+
+bank_options = {
     "1": "See customer information",
     "2": "Deposit to customer account",
     "3": "Withdraw from customer account",
@@ -20,9 +21,9 @@ customer_options = {
 }
 
 while True:
-    for x in customer_options:
+    for x in bank_options:
 
-        print(x, ":", customer_options[x])
+        print(x, ":", bank_options[x])
     options = input("Enter number to select option: ")
 
     if options == "1":
@@ -38,14 +39,15 @@ while True:
         print("------------------------------")
 
     elif options == "2":
-        try:
-            account_id = input("Account id: ")
-            amount = int(input("Amount: "))
-            print("------------------------------")
-            Bank.deposit(account_id, amount)
+       # try:
+        pnr = input("ssn: ")
+        account_id = input("Account id: ")
+        amount = int(input("Amount: "))
+        print("------------------------------")
+        Bank.deposit(pnr, account_id, amount)
         
-        except:
-            print("ERROR: enter a number")
+        ##except:
+           # print("ERROR: enter a number")
         
         print("------------------------------")
         input("Press enter to return to menu")

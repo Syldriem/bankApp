@@ -1,5 +1,7 @@
 import operator
 
+from Transaction import Transaction
+
 class Account:
     account_type = "debit"
     account_list = []
@@ -25,9 +27,10 @@ class Account:
             if (str(acc_nr) == x[0]):
                 return x
 
-    def add_to_balance(account, amount):
+    def add_to_balance(pnr, account, amount):
         x = int(account.balance)
         account.balance = (x+amount)
+        Transaction(pnr, account.acc_nr, amount)
 
     def take_from_balance(account, amount):
         x = int(account.balance)
