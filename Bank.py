@@ -136,14 +136,14 @@ class Bank:
 
 
 
-    def deposit(account_id, amount):
+    def deposit(pnr, account_id, amount):
         getter = operator.attrgetter("acc_nr")
         
         for x in Customer.account_list:
             temp_index = Customer.account_list.index(x)
             if str(account_id) == getter(Customer.account_list[temp_index]):
                 account = Customer.account_list[temp_index]
-                Account.add_to_balance(account, amount)
+                Account.add_to_balance(pnr, account, amount)
                 Bank._load()
                 return print("Money deposited")
             
