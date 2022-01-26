@@ -6,6 +6,8 @@ from Account import Account
 from Customer import Customer
 import operator
 
+from Datasource import Datasource
+
 class Bank:
     customerList = []
 
@@ -33,12 +35,7 @@ class Bank:
 
 
     def _load():
-        f = open("db.txt", "wt")
-        a = []
-        for s in Bank.customerList:
-            a.append(str(s)+ "\n")
-        f.writelines(a)
-        f.close()
+       Datasource.update_db(Bank.customerList) 
 
 
     def get_customers():
