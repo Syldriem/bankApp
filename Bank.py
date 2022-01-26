@@ -205,5 +205,5 @@ class Bank:
         if temp_str == "":
             return -1
         else:
-            return print(f"account: {acc_nr} has transactions: {temp_str}")
+            return print(f"Account: {acc_nr} has transactions: {temp_str}")
         
