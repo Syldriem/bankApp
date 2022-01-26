@@ -1,0 +1,2 @@
+1 19980118 1001 <class 'datetime.datetime'> 20 
+2 19980118 1001 <class 'datetime.datetime'> 30 
