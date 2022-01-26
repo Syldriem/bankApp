@@ -1,5 +1,5 @@
 
-from datetime import datetime
+from datetime import date
 
 from Datasource import Datasource
 
@@ -8,7 +8,7 @@ class Transaction:
 
     trans_id_list = []
     trans_record = []
-    def __init__(self, customer_id, account_id, amount, trans_id=1, date=None) -> None:
+    def __init__(self, customer_id, account_id, amount, trans_id=1) -> None:
         if int(trans_id) not in Transaction.trans_id_list:
             self.trans_id = str(trans_id)
         else:
@@ -16,10 +16,7 @@ class Transaction:
         Transaction.trans_id_list.append(int(self.trans_id))
         self.customer_id = customer_id
         self.account_id = account_id
-        if date == None:
-            self.date = datetime.now().replace(microsecond=0).isoformat()
-        else:
-            self.date = date
+        self.date = date.today()
         self.amount = amount
         Transaction.trans_record.append(self)
 
@@ -32,9 +29,9 @@ class Transaction:
         temp_list = Datasource.get_all("dbtransaction.txt")
         for line in temp_list:
             x = line.split()
-            Transaction(x[1],x[2],x[4],x[0],x[3])
+            Transaction(x[1],x[2],x[4],x[0])
 
     def get_transaction_from_acc(transaction):
-        trans_date = str(transaction.date).replace("T", " ")
+        trans_date = str(transaction.date)
         trans_amount = transaction.amount
-        return f"Date: {trans_date} Amount: {trans_amount}; "
+        return f"date: {trans_date} amount: {trans_amount}; "
