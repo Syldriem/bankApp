@@ -39,17 +39,17 @@ while True:
         print("------------------------------")
 
     elif options == "2":
-        ##try:
-        account_id = input("Account id: ")
-        amount = int(input("Amount to deposit: "))
-        print("------------------------------")
-        if Bank.deposit(account_id, amount) == True:
-            print("Money deposited")
-        else:
-            print("no account with that id number")
+        try:
+            account_id = input("Account id: ")
+            amount = int(input("Amount to deposit: "))
+            print("------------------------------")
+            if Bank.deposit(account_id, amount) == True:
+                print("Money deposited")
+            else:
+                print("no account with that id number")
         
-        ##except:
-            ##print("ERROR: enter a number")
+        except:
+            print("ERROR: enter a number")
         
         print("------------------------------")
         input("Press enter to return to menu")
