@@ -42,7 +42,7 @@ class Bank:
 
 
     def get_customers():
-        getter = operator.attrgetter("customer_id","pnr", "name")
+        getter = operator.attrgetter("pnr", "name")
         for customer in Bank.customerList:
             print(getter(customer))
 
