@@ -13,7 +13,7 @@ class Bank:
     def __init__(self): 
         """Init the bank and loads all customers and transactions from database"""
         Transaction.get_transactions()
-        temp_list = Datasource.get_all("db.txt")
+        temp_list = Datasource.get_all("customer")
         for line in temp_list:
             x = line.split()
             Bank.add_customers(x[1], x[2], x[4], x[3], x[0])
@@ -27,7 +27,7 @@ class Bank:
 
     def _load(): 
         """Saves the current customers to the database"""
-        Datasource.update_db("db.txt",Bank.customerList)
+        Datasource.update_db("customer",Bank.customerList)
 
 
     def get_customers(): 

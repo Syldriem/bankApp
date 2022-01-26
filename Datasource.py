@@ -23,18 +23,24 @@ class Datasource:
         except:
             return (False, "Connection unsuccessful")
 
-    def get_all(path):
+    def get_all(inc):
         """Retrieves all elements in a file"""
         Datasource.datasource_list = []
-        f = open(path, "rt")
+        if inc == "customer":
+            f = open(Datasource.customer_path, "rt")
+        elif inc == "transaction":
+            f = open(Datasource.transaction_path, "rt")
         for line in f:
             Datasource.datasource_list.append(line)
         f.close()
         return Datasource.datasource_list
 
-    def update_db(path, list):
+    def update_db(inc, list):
         """Writes to a file"""
-        f = open(path , "wt")
+        if inc == "customer":
+            f = open(Datasource.customer_path, "wt")
+        elif inc == "transaction":
+            f = open(Datasource.transaction_path, "wt")
         a = []
         for s in list:
             a.append(str(s)+ "\n")

@@ -25,7 +25,7 @@ class Transaction:
         self.amount = amount
         Transaction.trans_record.append(self)
 
-        Datasource.update_db("dbtransaction.txt",Transaction.trans_record)
+        Datasource.update_db("transaction",Transaction.trans_record)
 
     def __str__(self):
         """Stringifies transaction data"""
@@ -33,7 +33,7 @@ class Transaction:
 
     def get_transactions():
         """Creates transactions from elements in a textfile"""
-        temp_list = Datasource.get_all("dbtransaction.txt")
+        temp_list = Datasource.get_all("transaction")
         for line in temp_list:
             x = line.split()
             Transaction(x[1],x[2],x[4],x[0],x[3])
