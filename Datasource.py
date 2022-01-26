@@ -1,6 +1,7 @@
 
 
 class Datasource:
+    """Datasource class"""
     datasource_list = []
     customer_path = ""
     transaction_path = ""
@@ -15,6 +16,7 @@ class Datasource:
 
 
     def conn(self, path):
+        """Opens a file"""
         try:
             open(path, "rt")
             return (True, "Connection successful", path)
@@ -22,6 +24,7 @@ class Datasource:
             return (False, "Connection unsuccessful")
 
     def get_all(path):
+        """Retrieves all elements in a file"""
         Datasource.datasource_list = []
         f = open(path, "rt")
         for line in f:
@@ -29,16 +32,9 @@ class Datasource:
         f.close()
         return Datasource.datasource_list
 
-    def update_db(list):
-        f = open(Datasource.customer_path, "wt")
-        a = []
-        for s in list:
-            a.append(str(s)+ "\n")
-        f.writelines(a)
-        f.close()
-
-    def update_trans(list):
-        f = open(Datasource.transaction_path, "wt")
+    def update_db(path, list):
+        """Writes to a file"""
+        f = open(path , "wt")
         a = []
         for s in list:
             a.append(str(s)+ "\n")
