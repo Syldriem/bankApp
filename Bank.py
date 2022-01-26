@@ -7,9 +7,10 @@ from Transaction import Transaction
 
 
 class Bank:
+    """Bank class! Here we can perform all the functions needed in a bank."""
     customerList = []
 
-    def __init__(self):
+    def __init__(self): #Init the bank and loads all customers and transactions from database
         Transaction.get_transactions()
         temp_list = Datasource.get_all("db.txt")
         for line in temp_list:
@@ -23,17 +24,17 @@ class Bank:
                 index +=1
 
 
-    def _load():
+    def _load(): # Saves the current customers to the database
         Datasource.update_db(Bank.customerList)
 
 
-    def get_customers():
+    def get_customers(): # Prints SSN and name for all customers
         getter = operator.attrgetter("pnr", "name")
         for customer in Bank.customerList:
             print(getter(customer))
 
 
-    def add_customers(name, pnr, *args):
+    def add_customers(name, pnr, *args): #Adds a new customer to the Bank with a new account if not loaded from Datasource
         if Bank.checkPnr(pnr):
            return print(f"{name} didnt add, customer with that ssn already exists"), False
         elif len(str(pnr)) == 8:
@@ -48,7 +49,7 @@ class Bank:
         else:
             return print("wrong length person number"), False
 
-    def get_customer(self, pnr):
+    def get_customer(self, pnr): # Returns a full customer by SSN
         getter = operator.attrgetter("pnr")
         for x in Bank.customerList:
             temp_index = Bank.customerList.index(x)
@@ -58,7 +59,7 @@ class Bank:
 
         print("no person with that id number")
 
-    def change_customer_name(self, name, pnr):
+    def change_customer_name(self, name, pnr): #Changes a customers name
         getter = operator.attrgetter("pnr")
         
         for x in Bank.customerList:
@@ -73,7 +74,7 @@ class Bank:
         return False
                 
 
-    def remove_customer(pnr):
+    def remove_customer(pnr): #Removes a customer from the bank and all of their accounts
         getter = operator.attrgetter("pnr")
         getter2 = operator.attrgetter("accounts")
         getter3 = operator.attrgetter("balance")
@@ -93,7 +94,7 @@ class Bank:
             
         print("no person with that id number")
     
-    def add_account(pnr, balance, *args):
+    def add_account(pnr, balance, *args): #Adds an account to an existing customer
         getter = operator.attrgetter("pnr")
         
         for x in Bank.customerList:
@@ -112,7 +113,7 @@ class Bank:
         
     
 
-    def get_account(self, account_id):
+    def get_account(self, account_id):  #Fetches full account information by account id
         getter = operator.attrgetter("acc_nr")
         for x in Customer.account_list:
             temp_index = Customer.account_list.index(x)
@@ -122,7 +123,7 @@ class Bank:
 
 
 
-    def deposit(account_id, amount):
+    def deposit(account_id, amount): #Deposits an amount of money to a specific account
         getter = operator.attrgetter("acc_nr")
         
         for x in Customer.account_list:
@@ -135,7 +136,7 @@ class Bank:
             
         return False
         
-    def checkPnr(pnr):
+    def checkPnr(pnr): #Checks if a SSN exist in our bank
         getter = operator.attrgetter("pnr")
         for x in Bank.customerList:
             temp_index = Bank.customerList.index(x)
@@ -144,7 +145,7 @@ class Bank:
         return False
 
 
-    def withdraw(account_id, amount):
+    def withdraw(account_id, amount): # Withdraws an amount of money from a specific account if possible
         getter = operator.attrgetter("acc_nr")
         
         for x in Customer.account_list:
@@ -157,7 +158,7 @@ class Bank:
             
         print("no account with that id number")
 
-    def close_account(account_id):
+    def close_account(account_id): # Closes an account
         getter = operator.attrgetter("acc_nr")
         getter3 = operator.attrgetter("balance")
         
@@ -192,7 +193,7 @@ class Bank:
 
 
         
-    def get_transactions_from_acc(acc_nr):
+    def get_transactions_from_acc(acc_nr): #Returns all the transactions made for an account
         getter = operator.attrgetter("account_id")
         temp_str = ""
         for x in Transaction.trans_record:
