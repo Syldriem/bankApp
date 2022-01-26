@@ -16,10 +16,10 @@ class Transaction:
         Transaction.trans_id_list.append(int(self.trans_id))
         self.customer_id = customer_id
         self.account_id = account_id
-        if datetime == None:
-            self.date = datetime(date.now().replace(microsecond=0).isoformat())
+        if date == None:
+            self.date = datetime.now().replace(microsecond=0).isoformat()
         else:
-            self.date = datetime
+            self.date = date
         self.amount = amount
         Transaction.trans_record.append(self)
 
@@ -35,6 +35,6 @@ class Transaction:
             Transaction(x[1],x[2],x[4],x[0],x[3])
 
     def get_transaction_from_acc(transaction):
-        trans_date = str(transaction.date)
+        trans_date = str(transaction.date).replace("T", " ")
         trans_amount = transaction.amount
-        return f"date: {trans_date} amount: {trans_amount}; "
+        return f"Date: {trans_date} Amount: {trans_amount}; "
