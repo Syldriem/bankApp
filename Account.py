@@ -7,8 +7,9 @@ class Account:
     account_list = []
     account_num_list = [1000]
     
-    def __init__(self, balance = 0, acc_nbr = 1001) -> None:
+    def __init__(self, pnr, balance = 0, acc_nbr = 1001) -> None:
         self.balance = balance
+        self.pnr = pnr
         if int(acc_nbr) not in Account.account_num_list:
             self.acc_nr = str(acc_nbr)
         else:
@@ -27,15 +28,16 @@ class Account:
             if (str(acc_nr) == x[0]):
                 return x
 
-    def add_to_balance(pnr, account, amount):
+    def add_to_balance(account, amount):
         x = int(account.balance)
         account.balance = (x+amount)
-        Transaction(pnr, account.acc_nr, amount)
+        Transaction(account.pnr, account.acc_nr, amount)
 
     def take_from_balance(account, amount):
         x = int(account.balance)
         if (x-amount)>=0:
             account.balance = (x-amount)
+            Transaction(account.pnr, account.acc_nr, -amount)
             print("money withdrawn")
             return True
         else:

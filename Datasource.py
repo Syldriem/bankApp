@@ -11,19 +11,19 @@ class Datasource:
         Datasource.transaction_path = t_path
         print(self.conn(self.transaction_path))
         print(self.conn(self.customer_path))
-        ##self.load_transactions()
-        ##self.get_all()
+
 
 
     def conn(self, path):
-        test_data = path.split(".")
-        if test_data[1] == "txt":
+        try:
+            open(path, "rt")
             return (True, "Connection successful", path)
-        else:
+        except:
             return (False, "Connection unsuccessful")
 
-    def get_all():
-        f = open("db.txt", "rt")
+    def get_all(path):
+        Datasource.datasource_list = []
+        f = open(path, "rt")
         for line in f:
             Datasource.datasource_list.append(line)
         f.close()
@@ -37,9 +37,10 @@ class Datasource:
         f.writelines(a)
         f.close()
 
-    def update_by_id():
-        pass
-    def remove_by_id():
-        pass
-
-##db = Datasource()
+    def update_trans(list):
+        f = open(Datasource.transaction_path, "wt")
+        a = []
+        for s in list:
+            a.append(str(s)+ "\n")
+        f.writelines(a)
+        f.close()

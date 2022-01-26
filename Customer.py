@@ -1,29 +1,27 @@
-import operator
 from Account import Account
-"""Hej detta är en modul"""
+
 
 class Customer:
-    ## FIX CUSTOMER ID INT##
+    
     account_list = []
     customer_id_list = [111110]
     def __init__(self, name, pnr, *args) -> None:
         self.accounts = []
+        self.name = name
+        self.pnr = pnr
         if len(args) == 0:
             self.customer_id = max(Customer.customer_id_list)+1
         else:
             if args[2] not in Customer.customer_id_list:
                 self.customer_id = str(args[2])
             else:
-                asd = max(Customer.customer_id_list)+1
-                self.customer_id = str(asd)
-
+                self.customer_id = max(Customer.customer_id_list)+1
         Customer.customer_id_list.append(int(self.customer_id))
-        self.name = name
-        self.pnr = pnr
+
         if len(args) == 0:
-            a = Account()
+            a = Account(self.pnr)
         else:
-            a = Account(args[0], args[1])
+            a = Account(self.pnr, args[0], args[1])
         self.accounts.append(a)
         Customer.account_list.append(a)
 
@@ -37,19 +35,15 @@ class Customer:
 
 
 
-    def cust_from_list(name, pnr, account_id, balance):
-        return Customer(name, pnr, account_id, balance)
-
-
-
     def add_account(customer, balance, *args):
         if len(args) == 0:
-            a = Account(balance)
+            a = Account(customer.pnr, balance)
         else:
         
-            a = Account(balance, args[0])
+            a = Account(customer.pnr, balance, args[0])
         customer.accounts.append(a)
         customer.account_list.append(a)
+        return a.acc_nr
         
         
 
@@ -59,7 +53,7 @@ class Customer:
 
 
 
-    def change_name2(customer, name):
+    def change_name(customer, name):
         customer.name = name
 
 
