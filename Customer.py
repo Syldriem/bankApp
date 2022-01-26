@@ -2,10 +2,11 @@ from Account import Account
 
 
 class Customer:
-    
+    """Customer class. Here we have functions to manipulate a customer"""
     account_list = []
     customer_id_list = [111110]
     def __init__(self, name, pnr, *args) -> None:
+        """Initializes the customer with attributes"""
         self.accounts = []
         self.name = name
         self.pnr = pnr
@@ -27,6 +28,7 @@ class Customer:
 
 
     def __str__(self) -> str:
+        """Stringifies a customer and their accounts"""
         stringacc = ""
         for account in self.accounts:
             stringacc += str(account)
@@ -36,6 +38,7 @@ class Customer:
 
 
     def add_account(customer, balance, *args):
+        """Adds an account to a customer and a list of all accounts"""
         if len(args) == 0:
             a = Account(customer.pnr, balance)
         else:
@@ -48,17 +51,20 @@ class Customer:
         
 
     def remove_customer(customer):
+        """Deletes a customer"""
         del customer
 
 
 
 
     def change_name(customer, name):
+        """Changes a customer's name"""
         customer.name = name
 
 
 
     def delete_account_from_cust(customer, account):
+        """Deletes an account from a customer"""
         temp_index = customer.accounts
         for x in customer.accounts:
             temp_index = customer.accounts.index(x)

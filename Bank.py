@@ -27,7 +27,7 @@ class Bank:
 
     def _load(): 
         """Saves the current customers to the database"""
-        Datasource.update_db(Bank.customerList)
+        Datasource.update_db("db.txt",Bank.customerList)
 
 
     def get_customers(): 
