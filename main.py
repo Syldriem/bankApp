@@ -6,6 +6,7 @@ from Datasource import Datasource
 db = Datasource()
 bank = Bank()
 
+
 bank_options = {
     "1": "See customer information",
     "2": "Deposit to customer account",

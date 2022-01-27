@@ -13,9 +13,9 @@ class Account:
         self.balance = balance
         self.pnr = pnr
         if int(acc_nbr) not in Account.account_num_list:
-            self.acc_nr = acc_nbr
+            self.acc_nr = str(acc_nbr)
         else:
-            self.acc_nr = max(Account.account_num_list)+1
+            self.acc_nr = str(max(Account.account_num_list)+1)
         Account.account_num_list.append(int(self.acc_nr))
         
         Account.account_list.append([self.acc_nr, int(self.balance), self.account_type])
