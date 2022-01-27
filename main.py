@@ -103,12 +103,15 @@ while True:
 
 
     elif options == "8":
-        pnr = input("Social security number: ") 
-        amount = input("Enter starting amount: ")
-        print("------------------------------")
-        acc_nr = Bank.add_account(pnr, amount)
-        if acc_nr != -1:
-            print(f"account added with number {acc_nr}")
+        try:
+            pnr = input("Social security number: ") 
+            amount = input("Enter starting amount: ")
+            print("------------------------------")
+            acc_nr = Bank.add_account(pnr, amount)
+            if acc_nr != -1:
+                print(f"account added with number {acc_nr}")
+        except:
+            print("Enter number")
         print("------------------------------")
         input("Press enter to return to menu")
         print("------------------------------") 
